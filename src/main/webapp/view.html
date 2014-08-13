@@ -17,7 +17,7 @@
             </label>
         </div>
     </nav>
-    <div class="main-content" ez-infinite-scroll="fetch" id="scrollable-parent" ez-stop-flag="{{noMoreItems}}">
+    <div class="main-content" ez-infinite-scroll="fetchNextItems()" id="scrollable-parent" ez-stop-flag="{{noMoreItems}}">
         <div class="item-list" ez-infinite-child id="scrollable-child">
             <div ng-repeat="item in items| filter:filters.byColor" class="item {{item.color}}">
                 <div>
