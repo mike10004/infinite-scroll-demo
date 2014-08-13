@@ -1,12 +1,5 @@
 <div class="view">
     <header>
-        <div ng-show="false">
-            <h2>Generate new items list</h2>
-            <input type="number" min="1" ng-model="numItemsToGenerate"> items
-            <button ng-click="generateItems()">Generate</button>
-            <a ng-href="{{itemsDataUri}}" ng-show="!!itemsDataUri" 
-               target="_blank">Download</a>
-        </div>
         <div class="info">
             <span class="count">{{ getNumItems() }} items</span>
             <label>Page start <input type="number" ng-model="pageSpec.pageStart"></label>

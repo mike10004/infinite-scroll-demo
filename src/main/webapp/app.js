@@ -1,69 +1,8 @@
 'use strict';
 
-var colors = ['red', 'blue', 'green', 'purple', 'orange', 'pink'];
-
-function createItemsList(numItems) {
-    // Returns a random integer between min (included) and max (excluded)
-    function randomInt(min, max) {
-      if (typeof min === 'undefined' && typeof max === 'undefined') {
-          max = 9007199254740991;
-          min = -max;
-      }
-      if (typeof max === 'undefined') {
-          max = min;
-          min = 0;
-      }
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-    
-    var latest = new Date(Date.now());
-    var earliest = new Date(latest.getFullYear() - 1, 0, 1);
-    
-    function randomDate() {
-        var min = earliest.getTime();
-        var max = latest.getTime();
-        var value = randomInt(min, max);
-        return new Date(value);
-    }
-    
-    function toHexString(d, padding) {
-        var hex = Number(d).toString(16);
-        padding = typeof (padding) === "undefined" || padding === null ? padding = 0 : padding;
-
-        while (hex.length < padding) {
-            hex = "0" + hex;
-        }
-
-        return hex;
-    }
-    
-    numItems = numItems || 1000;
-    
-    var items = [];
-    
-    function newItem() {
-        return {
-            color: colors[randomInt(0, colors.length)],
-            id: toHexString(Math.abs(randomInt()), 12) + toHexString(Math.abs(randomInt()), 12) + toHexString(Math.abs(randomInt()), 12),
-            timestamp: randomDate()
-        };
-    }
-    
-    for (var i = 0; i < numItems; i++) {
-        items.push(newItem());
-    }
-    
-    items.sort(function(a, b) {
-        return b.timestamp.getTime() - a.timestamp.getTime();
-    });
-    
-    return items;
-}
-
 angular.module('infiniteScrollDemo', [
   'ngRoute',
   'lrInfiniteScroll',
-//    'infinite-scroll',
   'infiniteScrollDemo.filters',
   'infiniteScrollDemo.controllers'
 ]).
@@ -78,9 +17,9 @@ config(['$routeProvider', '$compileProvider',
 angular.module('infiniteScrollDemo.controllers', [])
   .controller('MainController', ['$scope', '$http', 
     function($scope, $http) {
-        $scope.colors = colors;
+        $scope.colors = ['red', 'blue', 'green', 'purple', 'orange', 'pink'];
         $scope.colorOptionsByColor = {};
-        $scope.colorOptions = colors.map(function(color){
+        $scope.colorOptions = $scope.colors.map(function(color){
             var option = {
                 color: color,
                 selected: true
