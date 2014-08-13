@@ -1,0 +1,101 @@
+.view {
+    position: relative;
+}
+
+h1 {
+    font-size: 18pt;
+}
+
+h2 {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+header, nav, div.main-content {
+    border: 1px dashed silver;
+}
+
+header {
+    height: 120px;
+    overflow: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 240px;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+div.main-content {
+    position: fixed;
+    top: 120px;
+    right: 0;
+    left: 240px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+nav div.color {
+    margin: 15px;
+}
+
+label.color {
+    width: 160px;
+}
+
+label.color:hover {
+    cursor: pointer;
+}
+
+.item {
+    border-style: solid;
+    border-width: 25px;
+    margin: 5px;
+    display: table;
+    width: 100%;
+}
+
+.item > div {
+    display: table-row;
+    width: 98%;
+}
+
+.item > div > * {
+    display: table-cell;
+}
+
+.item.red {
+    border-color: red;
+}
+
+.item.green {
+    border-color: green;
+}
+
+.item.blue {
+    border-color: blue;
+}
+
+.item.orange {
+    border-color: orange;
+}
+
+.item.purple {
+    border-color: purple;
+}
+
+.item.pink {
+    border-color: pink;
+}
+
+.item .item-id {
+    font-family: monospace;
+}
+
+.item-list {
+    margin-right: 10px;
+}

@@ -1,0 +1,36 @@
+<div class="view">
+    <header>
+        <div ng-show="false">
+            <h2>Generate new items list</h2>
+            <input type="number" min="1" ng-model="numItemsToGenerate"> items
+            <button ng-click="generateItems()">Generate</button>
+            <a ng-href="{{itemsDataUri}}" ng-show="!!itemsDataUri" 
+               target="_blank">Download</a>
+        </div>
+        <div class="info">
+            <span class="count">{{ getNumItems() }} items</span>
+            <label>Page start <input type="number" ng-model="pageSpec.pageStart"></label>
+            <label>Page size <input type="number" ng-model="pageSpec.pageSize"></label>
+        </div>
+    </header>
+    <nav>
+        <div ng-repeat="colorOption in colorOptions" class="color {{colorOption.color}}">
+            <input type="checkbox" ng-model="colorOption.selected"
+                   id="color-{{colorOption.color}}" class="color {{colorOption.color}}">
+            <label for="color-{{colorOption.color}}"  
+                   class="color {{colorOption.color}}" 
+                   style="background-color: {{colorOption.color}}">&nbsp;</label>
+        </div>
+    </nav>
+    <div class="main-content" lr-infinite-scroll="fetchNextItems">
+        <div class="item-list">
+            <div ng-repeat="item in items| filter:filters.byColor" class="item {{item.color}}">
+                <div>
+                    <div>{{ $index }} </div>
+                    <div class="timestamp">{{ item.timestamp | date:'yyyy MMM dd HH:mm' }}</div>
+                    <div class="item-id">{{ item.id }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
