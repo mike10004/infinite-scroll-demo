@@ -2,7 +2,7 @@
 
 angular.module('infiniteScrollDemo', [
   'ngRoute',
-  'lrInfiniteScroll',
+  'ezInfiniteScroll',
   'infiniteScrollDemo.filters',
   'infiniteScrollDemo.controllers'
 ]).

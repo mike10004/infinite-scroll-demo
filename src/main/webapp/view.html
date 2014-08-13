@@ -15,8 +15,8 @@
                    style="background-color: {{colorOption.color}}">&nbsp;</label>
         </div>
     </nav>
-    <div class="main-content" lr-infinite-scroll="fetchNextItems">
-        <div class="item-list">
+    <div class="main-content" ez-infinite-scroll="fetchNextItems">
+        <div class="item-list" ez-infinite-child>
             <div ng-repeat="item in items| filter:filters.byColor" class="item {{item.color}}">
                 <div>
                     <div>{{ $index }} </div>

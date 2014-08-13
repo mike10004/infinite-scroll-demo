@@ -16,13 +16,13 @@ header, nav, div.main-content {
 }
 
 header {
-    height: 120px;
+    height: 60px;
     overflow: hidden;
 }
 
 nav {
     position: fixed;
-    top: 120px;
+    top: 60px;
     left: 0;
     width: 240px;
     bottom: 0;
@@ -32,7 +32,7 @@ nav {
 
 div.main-content {
     position: fixed;
-    top: 120px;
+    top: 60px;
     right: 0;
     left: 240px;
     bottom: 0;

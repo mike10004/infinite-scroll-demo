@@ -1,7 +1,9 @@
 {
     "attributes": {
+        "ez-infinite-scroll": {},
         "infinite-scroll": {},
-        "lr-infinite-scroll": {}
+        "lr-infinite-scroll": {},
+        "ez-infinite-child": {}
     },
     "elements": {}
 }

@@ -1,14 +1,26 @@
 (function (ng) {
     'use strict';
-    var module = ng.module('lrInfiniteScroll', []);
+    var module = ng.module('ezInfiniteScroll', []);
 
-    module.directive('lrInfiniteScroll', ['$timeout', function (timeout) {
-        return{
+    module.directive('ezInfiniteChild', [function(){
+        return {
+            require: '^ezInfiniteScroll',
+            link: {
+                post: function postLink(scope, element, attrs, ezInfiniteScrollCtrl) {
+                    console.log('ezInfiniteChild.link');
+                    ezInfiniteScrollCtrl.doSomething();
+                }
+            }
+        };
+    }]);
+
+    module.directive('ezInfiniteScroll', ['$timeout', function (timeout) {
+        return {
             link: function (scope, element, attr) {
                 var
                     lengthThreshold = attr.scrollThreshold || 50,
                     timeThreshold = attr.timeThreshold || 400,
-                    handler = scope.$eval(attr.lrInfiniteScroll),
+                    handler = scope.$eval(attr.ezInfiniteScroll),
                     promise = null,
                     lastRemaining = 9999;
 
@@ -19,7 +31,7 @@
                     handler = ng.noop;
                 }
 
-                var scrollCallback = function () {
+                var maybeInvokeCallback = function () {
                     var
                         remaining = element[0].scrollHeight - (element[0].clientHeight + element[0].scrollTop);
 
@@ -38,10 +50,15 @@
                     lastRemaining = remaining;
                 };
 
-                element.bind('scroll', scrollCallback);
-                scrollCallback(); // start it off
-            }
-
+                element.on('scroll', maybeInvokeCallback);
+                maybeInvokeCallback(); // start it off
+            },
+            controller: [function(){
+                console.log('ezInfiniteScroll: controller');
+                this.doSomething = function() {
+                    console.log('doSomething');
+                };
+            }]
         };
     }]);
 })(angular);
