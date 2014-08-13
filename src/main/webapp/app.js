@@ -39,29 +39,32 @@ angular.module('infiniteScrollDemo.controllers', [])
             pageSize: 5
         };
         $scope.items = [];
-        $scope.getNumItems = function() {
-            return $scope.items.length;
-        };
         $scope.fetchNextItems = function() {
             var pageSpec = angular.copy($scope.pageSpec);
-            pageSpec.pageStart += pageSpec.pageSize;
-            $scope.pageSpec = pageSpec;
-            console.log("fetchNextItems " + JSON.stringify(pageSpec));
             $http.get('items', {
                 params: {
                     pageStart: pageSpec.pageStart,
-                    pageSize: pageSpec.pageSize
+                    pageSize: pageSpec.pageSize,
+                    cap: 20
                 }
             }).success(function(data){
+                console.log("fetchNextItems ", pageSpec, "returned", data.length, "items");
                 data.forEach(function(item){
                     $scope.items.push(item);
                 });
+                $scope.noMoreItems = data.length < pageSpec.pageSize;
+                if ($scope.noMoreItems) {
+                    console.log("fetch returned page with fewer items than requested; resource exhausted");
+                }
+                pageSpec.pageStart += pageSpec.pageSize;
+                $scope.pageSpec = pageSpec;
             }).error(function(data, status){
-                console.warn("fetchNextItems returned error " + status);
-                console.info(data);
+                console.warn("fetchNextItems returned error ", status, data);
             });
         };
-        
+        $scope.fetch = {
+            callback: $scope.fetchNextItems
+        };
         $scope.filters = {
             byColor: function(item) {
                 return $scope.colorOptionsByColor[item.color].selected;

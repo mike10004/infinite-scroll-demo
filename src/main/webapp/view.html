@@ -1,25 +1,28 @@
 <div class="view">
     <header>
-        <div class="info">
-            <span class="count">{{ getNumItems() }} items</span>
-            <label>Page start <input type="number" ng-model="pageSpec.pageStart"></label>
-            <label>Page size <input type="number" ng-model="pageSpec.pageSize"></label>
-        </div>
+        <h1>Infinite Scroll (with child height watch)</h1>
     </header>
     <nav>
+        <div class="info">
+            <label><span class="text">Page start</span><input readonly type="number" ng-model="pageSpec.pageStart"></label>
+            <label><span class="text">Page size</span><input readonly type="number" ng-model="pageSpec.pageSize"></label>
+            <span class="count">{{ items.length }} items</span>
+        </div>
         <div ng-repeat="colorOption in colorOptions" class="color {{colorOption.color}}">
             <input type="checkbox" ng-model="colorOption.selected"
                    id="color-{{colorOption.color}}" class="color {{colorOption.color}}">
             <label for="color-{{colorOption.color}}"  
-                   class="color {{colorOption.color}}" 
-                   style="background-color: {{colorOption.color}}">&nbsp;</label>
+                   class="color {{colorOption.color}}"> 
+                <span style="background-color: {{colorOption.color}}">&nbsp;</span>
+            </label>
         </div>
     </nav>
-    <div class="main-content" ez-infinite-scroll="fetchNextItems">
-        <div class="item-list" ez-infinite-child>
+    <div class="main-content" ez-infinite-scroll="fetch" id="scrollable-parent" ez-stop-flag="{{noMoreItems}}">
+        <div class="item-list" ez-infinite-child id="scrollable-child">
             <div ng-repeat="item in items| filter:filters.byColor" class="item {{item.color}}">
                 <div>
                     <div>{{ $index }} </div>
+                    <div>{{ item.index }}</div>
                     <div class="timestamp">{{ item.timestamp | date:'yyyy MMM dd HH:mm' }}</div>
                     <div class="item-id">{{ item.id }}</div>
                 </div>
